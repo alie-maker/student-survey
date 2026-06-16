@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استبانة الطلاب | GEMS Westminster School</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2E61;--navy2:#1A4080;--teal:#0D6E6E;--teal2:#0F8080;
+  --purple:#5B2D8E;--orange:#C47C1A;
+  --gold:#B48F3C;--gold2:#D4AA5A;
+  --cream:#F8F5EE;--white:#FFFFFF;--gray:#5A5A5A;--lgray:#E8E4DC;
+  --green:#1A7A4A;--red:#C0392B;--radius:12px;
+}
+body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--navy);direction:rtl}
+
+.hdr{background:var(--navy);text-align:center;padding:0}
+.hdr-top{padding:20px 16px 0;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.hdr-school{color:rgba(255,255,255,0.9);font-size:11px;font-weight:700;letter-spacing:.12em;line-height:1.6}
+.hdr-school span{display:block;font-size:13px;font-family:'Tajawal';letter-spacing:0}
+.hdr-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;padding:4px 16px;border-radius:99px;letter-spacing:.06em;margin:12px auto 0}
+.gold-bar{height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));margin-top:12px}
+
+.hero{background:linear-gradient(135deg,var(--teal) 0%,var(--teal2) 100%);padding:28px 20px;text-align:center;border-bottom:3px solid var(--gold)}
+.hero-emoji{font-size:40px;margin-bottom:10px}
+.hero h1{font-size:26px;font-weight:800;color:white;margin-bottom:4px}
+.hero p{font-size:14px;color:rgba(255,255,255,0.8);font-family:'Inter';direction:ltr}
+.hero-box{background:rgba(255,255,255,0.12);border-radius:10px;padding:14px 18px;margin:14px auto 0;font-size:13px;color:rgba(255,255,255,0.9);line-height:1.8;max-width:560px}
+.hero-box .en{font-family:'Inter';font-size:12px;color:rgba(255,255,255,0.7);direction:ltr;display:block;margin-top:8px}
+
+.breadcrumb{background:var(--navy2);padding:8px 20px;display:flex;gap:12px;align-items:center;font-size:12px;color:rgba(255,255,255,.6);justify-content:center}
+.breadcrumb span{color:var(--gold2)}
+
+.wrap{max-width:700px;margin:0 auto;padding:24px 14px 60px}
+.prog-bar{height:5px;background:var(--lgray);border-radius:99px;margin-bottom:22px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px;transition:width .4s ease;width:0}
+
+.sec{margin-bottom:20px}
+.sec-hdr{color:white;padding:14px 20px;border-radius:var(--radius) var(--radius) 0 0;display:flex;align-items:center;gap:12px}
+.sec-hdr.c1{background:var(--navy)}
+.sec-hdr.c2{background:var(--teal)}
+.sec-hdr.c3{background:var(--purple)}
+.sec-hdr.c4{background:var(--orange)}
+.sec-hdr.c5{background:#8B4513}
+.sec-num{background:var(--gold);color:var(--navy);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.sec-title{font-size:15px;font-weight:700}
+.sec-title-en{font-size:11px;color:rgba(255,255,255,.6);font-family:'Inter';margin-top:2px}
+.sec-body{background:white;border-radius:0 0 var(--radius) var(--radius);padding:20px;box-shadow:0 4px 20px rgba(13,46,97,.08)}
+
+.field{margin-bottom:16px}
+.field label{display:block;font-size:14px;font-weight:700;margin-bottom:7px;color:var(--navy)}
+.field label .en{font-family:'Inter';font-size:12px;font-weight:400;color:var(--gray);display:block;margin-top:2px}
+.req{color:var(--red)}
+input[type=text],select,textarea{
+  width:100%;border:1.5px solid var(--lgray);border-radius:8px;padding:11px 14px;
+  font-family:'Tajawal';font-size:15px;color:var(--navy);background:var(--cream);
+  outline:none;transition:border-color .2s
+}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(180,143,60,.15)}
+input.err,select.err{border-color:var(--red)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+textarea{resize:vertical;min-height:90px}
+
+/* EMOJI BUTTONS */
+.q-card{background:var(--cream);border-radius:10px;padding:16px;margin-bottom:14px;border:1px solid var(--lgray)}
+.q-card:last-child{margin-bottom:0}
+.q-text{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;text-align:center}
+.q-text .en{font-family:'Inter';font-size:12px;font-weight:400;color:var(--gray);display:block;margin-top:3px}
+.emoji-row{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.emoji-btn{flex:1;min-width:70px;text-align:center;padding:10px 4px;border:1.5px solid var(--lgray);border-radius:10px;cursor:pointer;font-size:11px;color:var(--gray);background:white;transition:all .15s;user-select:none}
+.emoji-btn .ico{font-size:22px;display:block;margin-bottom:4px}
+.emoji-btn:hover{border-color:var(--gold);background:#FDFAF3}
+.emoji-btn.sel{background:var(--navy);border-color:var(--navy);color:white}
+
+/* YES/NO */
+.yn-row{display:flex;gap:10px;margin-top:12px}
+.yn-btn{flex:1;text-align:center;padding:12px;border:1.5px solid var(--lgray);border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;color:var(--gray);background:white;transition:all .15s;user-select:none}
+.yn-btn:hover{border-color:var(--gold)}
+.yn-btn.sel{background:var(--navy);border-color:var(--navy);color:white}
+
+/* STARS */
+.stars{display:flex;gap:8px;justify-content:center;margin-top:12px;direction:ltr}
+.star{font-size:32px;cursor:pointer;color:#ddd;transition:all .15s}
+.star.lit{color:#F4C430}
+
+.sub-btn{width:100%;padding:16px;background:var(--navy);color:white;border:none;border-radius:var(--radius);font-family:'Tajawal';font-size:17px;font-weight:700;cursor:pointer;transition:background .2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+.sub-btn:hover{background:#081D3F}
+.sub-btn:disabled{opacity:.6;cursor:not-allowed}
+
+.success{display:none;text-align:center;padding:60px 20px}
+.success.show{display:block}
+.suc-icon{width:80px;height:80px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}
+.success h2{font-size:24px;color:var(--navy);margin-bottom:8px}
+.suc-btn{background:var(--navy);color:white;border:none;padding:12px 28px;border-radius:8px;font-family:'Tajawal';font-size:15px;cursor:pointer;margin-top:20px}
+
+.toast{display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:14px 24px;border-radius:10px;font-size:14px;font-weight:600;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,.2);text-align:center;max-width:90vw}
+.toast.ok{background:var(--green);color:white;display:block}
+.toast.bad{background:var(--red);color:white;display:block}
+
+footer{background:var(--navy);color:rgba(255,255,255,.6);text-align:center;padding:16px;font-size:12px;border-top:3px solid var(--gold)}
+
+@media(max-width:480px){
+  .row2{grid-template-columns:1fr}
+  .emoji-btn{min-width:55px;padding:8px 2px;font-size:10px}
+  .emoji-btn .ico{font-size:18px}
+  .hero h1{font-size:21px}
+}
+</style>
+</head>
+<body>
+
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxe_KHJ8Z81OfC8QTA6ZV14GaTWbO7EME4bTxVBlBlVLQMoOhCg1HPt1R69NgyEPTVG/exec";
+const answers={};
+</script>
+
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-school">
+      <span>مدرسة جيمس وستمينستر – رأس الخيمة</span>
+      GEMS WESTMINSTER SCHOOL — RAS AL KHAIMAH
+    </div>
+  </div>
+  <div class="hdr-badge">قسم المواد الوزارية &nbsp;·&nbsp; MOE DEPARTMENT</div>
+  <div class="gold-bar"></div>
+</header>
+
+<div class="hero">
+  <div class="hero-emoji">📚</div>
+  <h1>استبانة الطلاب حول تجربة التعلم</h1>
+  <p>Student Survey on Learning Experience</p>
+  <div class="hero-box">
+    عزيزي الطالب، نودّ سماع رأيك حول تجربتك التعليمية في قسم اللغة العربية والدراسات الاجتماعية. آراؤك تساعدنا على تطوير الدروس لنكون أفضل!
+    <span class="en">Dear Student, we would love to hear your thoughts about your learning experience in the Arabic & Social Studies Department. Your feedback helps us make lessons even better for you!</span>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <span>قسم المواد الوزارية</span> · <span>MOE Department</span> · <span>Arabic & Social Studies</span>
+</div>
+
+<div class="wrap">
+  <div class="prog-bar"><div class="prog-fill" id="prog"></div></div>
+  <form id="form" novalidate>
+
+    <!-- 1. BASIC INFO -->
+    <div class="sec">
+      <div class="sec-hdr c1">
+        <div class="sec-num">1</div>
+        <div>
+          <div class="sec-title">معلوماتي الأساسية</div>
+          <div class="sec-title-en">My Basic Information</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="field">
+          <label>اسمي ثلاثياً <span class="req">*</span>
+            <span class="en">My Full Name</span>
+          </label>
+          <input type="text" id="name" placeholder="اكتب اسمك الثلاثي / Write your full name">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>صفّي <span class="req">*</span>
+              <span class="en">My Class</span>
+            </label>
+            <select id="grade" onchange="updateSec()">
+              <option value="">اختر صفّك / Select Your Class</option>
+              <optgroup label="روضة / KG">
+                <option value="KG1">KG1</option>
+                <option value="KG2">KG2</option>
+              </optgroup>
+              <optgroup label="ابتدائي / Primary">
+                <option value="G1">Grade 1 — الصف الأول</option>
+                <option value="G2">Grade 2 — الصف الثاني</option>
+                <option value="G3">Grade 3 — الصف الثالث</option>
+                <option value="G4">Grade 4 — الصف الرابع</option>
+              </optgroup>
+              <optgroup label="إعدادي وثانوي / Middle & Secondary">
+                <option value="G5">Grade 5 — الصف الخامس</option>
+                <option value="G6">Grade 6 — الصف السادس</option>
+                <option value="G7">Grade 7 — الصف السابع</option>
+                <option value="G8">Grade 8 — الصف الثامن</option>
+                <option value="G9">Grade 9 — الصف التاسع</option>
+                <option value="G10">Grade 10 — الصف العاشر</option>
+                <option value="G11">Grade 11 — الصف الحادي عشر</option>
+                <option value="G12">Grade 12 — الصف الثاني عشر</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <label>قسمي <span class="req">*</span>
+              <span class="en">My Section</span>
+            </label>
+            <select id="section">
+              <option value="">اختر قسمك / Select Section</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. LEARNING EXPERIENCE -->
+    <div class="sec">
+      <div class="sec-hdr c2">
+        <div class="sec-num">2</div>
+        <div>
+          <div class="sec-title">تجربتي في التعلم</div>
+          <div class="sec-title-en">My Learning Experience</div>
+        </div>
+      </div>
+      <div class="sec-body">
+
+        <div class="q-card">
+          <div class="q-text">كيف تجد حصة اللغة العربية؟
+            <span class="en">How do you find the Arabic language lessons?</span>
+          </div>
+          <div class="emoji-row" data-key="arabic_feel">
+            <div class="emoji-btn" data-val="5"><span class="ico">🤩</span>رائعة!<br><small>Amazing</small></div>
+            <div class="emoji-btn" data-val="4"><span class="ico">😊</span>ممتعة<br><small>Fun</small></div>
+            <div class="emoji-btn" data-val="3"><span class="ico">🙂</span>جيدة<br><small>Good</small></div>
+            <div class="emoji-btn" data-val="2"><span class="ico">😐</span>عادية<br><small>Okay</small></div>
+            <div class="emoji-btn" data-val="1"><span class="ico">😒</span>مملة<br><small>Boring</small></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-text">هل تفهم الشرح بسهولة داخل الحصة؟
+            <span class="en">Do you easily understand the explanation during lessons?</span>
+          </div>
+          <div class="emoji-row" data-key="understanding">
+            <div class="emoji-btn" data-val="5"><span class="ico">🤩</span>بسهولة تامة<br><small>Very easily</small></div>
+            <div class="emoji-btn" data-val="4"><span class="ico">😊</span>دائماً<br><small>Always</small></div>
+            <div class="emoji-btn" data-val="3"><span class="ico">🙂</span>غالباً<br><small>Often</small></div>
+            <div class="emoji-btn" data-val="2"><span class="ico">😐</span>أحياناً<br><small>Sometimes</small></div>
+            <div class="emoji-btn" data-val="1"><span class="ico">😕</span>لا أفهم<br><small>Not at all</small></div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-text">هل تُستخدم أنشطة متنوعة في الحصة؟ (مجموعات، ألعاب، عروض)
+            <span class="en">Are varied activities used in lessons? (group work, games, presentations)</span>
+          </div>
+          <div class="emoji-row" data-key="activities">
+            <div class="emoji-btn" data-val="5"><span class="ico">🤩</span>كل حصة<br><small>Every lesson</small></div>
+            <div class="emoji-btn" data-val="4"><span class="ico">😊</span>دائماً<br><small>Always</small></div>
+            <div class="emoji-btn" data-val="3"><span class="ico">🙂</span>كثيراً<br><small>Often</small></div>
+            <div class="emoji-btn" data-val="2"><span class="ico">😐</span>أحياناً<br><small>Sometimes</small></div>
+            <div class="emoji-btn" data-val="1"><span class="ico">😒</span>نادراً<br><small>Rarely</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. TEACHER RELATIONSHIP -->
+    <div class="sec">
+      <div class="sec-hdr c3">
+        <div class="sec-num">3</div>
+        <div>
+          <div class="sec-title">علاقتي بالمعلم</div>
+          <div class="sec-title-en">My Relationship with the Teacher</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="q-card">
+          <div class="q-text">هل تشعر أن معلمك يهتم بك ويشجعك؟
+            <span class="en">Do you feel your teacher cares about you and encourages you?</span>
+          </div>
+          <div class="yn-row" data-key="teacher_care">
+            <div class="yn-btn" data-val="3">نعم دائماً &nbsp; Yes, always</div>
+            <div class="yn-btn" data-val="2">أحياناً &nbsp; Sometimes</div>
+            <div class="yn-btn" data-val="1">لا &nbsp; No</div>
+          </div>
+        </div>
+        <div class="q-card" style="margin-top:14px">
+          <div class="q-text">هل تستطيع طرح أسئلتك بحرية داخل الصف؟
+            <span class="en">Can you freely ask questions during class?</span>
+          </div>
+          <div class="yn-row" data-key="ask_freely">
+            <div class="yn-btn" data-val="3">نعم دائماً &nbsp; Yes, always</div>
+            <div class="yn-btn" data-val="2">أحياناً &nbsp; Sometimes</div>
+            <div class="yn-btn" data-val="1">لا &nbsp; No</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. HOMEWORK -->
+    <div class="sec">
+      <div class="sec-hdr c4">
+        <div class="sec-num">4</div>
+        <div>
+          <div class="sec-title">الواجبات والاختبارات</div>
+          <div class="sec-title-en">Homework & Tests</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="q-card">
+          <div class="q-text">هل الواجبات المنزلية تساعدك على الفهم؟
+            <span class="en">Does the homework help you understand the lessons better?</span>
+          </div>
+          <div class="emoji-row" data-key="homework_help">
+            <div class="emoji-btn" data-val="5"><span class="ico">🤩</span>دائماً<br><small>Always</small></div>
+            <div class="emoji-btn" data-val="4"><span class="ico">😊</span>كثيراً<br><small>A lot</small></div>
+            <div class="emoji-btn" data-val="3"><span class="ico">🙂</span>أحياناً<br><small>Sometimes</small></div>
+            <div class="emoji-btn" data-val="2"><span class="ico">😐</span>قليلاً<br><small>A little</small></div>
+            <div class="emoji-btn" data-val="1"><span class="ico">😒</span>لا تساعد<br><small>Not at all</small></div>
+          </div>
+        </div>
+        <div class="q-card">
+          <div class="q-text">هل تشعر بالاستعداد الكافي قبل الاختبارات؟
+            <span class="en">Do you feel well-prepared before tests?</span>
+          </div>
+          <div class="yn-row" data-key="test_ready">
+            <div class="yn-btn" data-val="3">نعم، مستعد دائماً &nbsp; Yes, always ready</div>
+            <div class="yn-btn" data-val="2">أحياناً &nbsp; Sometimes</div>
+            <div class="yn-btn" data-val="1">لا أشعر باستعداد &nbsp; Not prepared</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. OVERALL -->
+    <div class="sec">
+      <div class="sec-hdr c5">
+        <div class="sec-num">5</div>
+        <div>
+          <div class="sec-title">رأيي العام</div>
+          <div class="sec-title-en">My Overall Opinion</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="q-card">
+          <div class="q-text">ما مدى حبك لمادتي اللغة العربية والدراسات الاجتماعية؟
+            <span class="en">How much do you enjoy Arabic and Social Studies subjects?</span>
+          </div>
+          <div class="stars" id="stars">
+            <span class="star" data-v="1">★</span>
+            <span class="star" data-v="2">★</span>
+            <span class="star" data-v="3">★</span>
+            <span class="star" data-v="4">★</span>
+            <span class="star" data-v="5">★</span>
+          </div>
+        </div>
+        <div class="field" style="margin-top:14px">
+          <label>ما الشيء الذي تتمنى تغييره أو تحسينه في الحصة؟
+            <span class="en">What is one thing you wish to change or improve in the lessons?</span>
+          </label>
+          <textarea id="suggestions" placeholder="اكتب رأيك هنا... / Write your thoughts here..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="sub-btn" id="subBtn">
+      <span id="subTxt">إرسال الاستبانة · Submit Survey</span>
+      <span id="subSpin" style="display:none">⏳ جارٍ الإرسال...</span>
+    </button>
+    <p style="text-align:center;font-size:12px;color:var(--gray);margin-top:10px">
+      جميع البيانات سرية وتُستخدم لتطوير التعليم فقط<br>
+      <span style="font-family:'Inter'">All data is confidential and used for educational improvement only.</span>
+    </p>
+  </form>
+
+  <div class="success" id="suc">
+    <div class="suc-icon">✓</div>
+    <h2>شكراً لك! 🎉</h2>
+    <p>تم إرسال استبانتك بنجاح. رأيك يهمنا وسيساعدنا على التطوير.<br>
+    <span style="font-family:'Inter';font-size:13px">Thank you! Your response has been recorded successfully.</span></p>
+    <button class="suc-btn" onclick="location.reload()">إرسال استبانة أخرى · Submit Another</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  GEMS Westminster School — Ras Al Khaimah &nbsp;|&nbsp; قسم المواد الوزارية — اللغة العربية والدراسات الاجتماعية
+</footer>
+
+<script>
+// SECTIONS
+function updateSec(){
+  const g=document.getElementById('grade').value;
+  const s=document.getElementById('section');
+  s.innerHTML='<option value="">اختر قسمك / Select Section</option>';
+  if(!g)return;
+  if(['KG1','KG2','G1','G2','G3','G4'].includes(g)){
+    'ABCDEFGHIJKLMN'.split('').forEach(l=>{
+      const o=document.createElement('option');o.value=l;o.textContent=`شعبة ${l}`;s.appendChild(o);
+    });
+  } else {
+    [1,2,3,4,5,6].forEach(n=>{
+      let o=document.createElement('option');o.value=`بنين-${n}`;o.textContent=`بنين ${n} · Boys ${n}`;s.appendChild(o);
+      o=document.createElement('option');o.value=`بنات-${n}`;o.textContent=`بنات ${n} · Girls ${n}`;s.appendChild(o);
+    });
+  }
+}
+
+// EMOJI BUTTONS
+document.querySelectorAll('.emoji-row').forEach(row=>{
+  const key=row.dataset.key;
+  row.querySelectorAll('.emoji-btn').forEach(btn=>{
+    btn.onclick=()=>{
+      row.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      answers[key]=+btn.dataset.val;
+      updateProg();
+    };
+  });
+});
+
+// YES/NO BUTTONS
+document.querySelectorAll('.yn-row').forEach(row=>{
+  const key=row.dataset.key;
+  row.querySelectorAll('.yn-btn').forEach(btn=>{
+    btn.onclick=()=>{
+      row.querySelectorAll('.yn-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      answers[key]=+btn.dataset.val;
+      updateProg();
+    };
+  });
+});
+
+// STARS
+let starVal=0;
+document.querySelectorAll('.star').forEach(s=>{
+  s.onmouseover=()=>lightStars(+s.dataset.v);
+  s.onmouseout=()=>lightStars(starVal);
+  s.onclick=()=>{starVal=+s.dataset.v;lightStars(starVal);answers.overall=starVal;updateProg();};
+});
+function lightStars(n){document.querySelectorAll('.star').forEach(s=>s.classList.toggle('lit',+s.dataset.v<=n));}
+
+// PROGRESS
+const REQ=['arabic_feel','understanding','activities','teacher_care','ask_freely','homework_help','test_ready','overall'];
+function updateProg(){
+  const n=document.getElementById('name').value.trim();
+  const g=document.getElementById('grade').value;
+  const sc=document.getElementById('section').value;
+  const f=REQ.filter(k=>answers[k]).length+(n?1:0)+(g?1:0)+(sc?1:0);
+  document.getElementById('prog').style.width=(f/(REQ.length+3)*100)+'%';
+}
+['name','grade','section'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el){el.addEventListener('input',updateProg);el.addEventListener('change',updateProg);}
+});
+
+// TOAST
+function toast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+(type==='ok'?'ok':'bad');
+  setTimeout(()=>t.className='toast',4000);
+}
+
+// SUBMIT
+document.getElementById('form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  const grade=document.getElementById('grade').value;
+  const section=document.getElementById('section').value;
+  let ok=true;
+  if(!name){document.getElementById('name').classList.add('err');ok=false;}
+  else document.getElementById('name').classList.remove('err');
+  if(!grade){document.getElementById('grade').classList.add('err');ok=false;}
+  else document.getElementById('grade').classList.remove('err');
+  if(!section){document.getElementById('section').classList.add('err');ok=false;}
+  else document.getElementById('section').classList.remove('err');
+  if(REQ.filter(k=>!answers[k]).length){toast('يرجى الإجابة على جميع الأسئلة · Please answer all questions','bad');ok=false;}
+  if(!ok)return;
+
+  const data={
+    sheet:'استبانة الطلاب',
+    timestamp:new Date().toLocaleString('ar-AE'),
+    name,grade,section,
+    arabic_feel:answers.arabic_feel,
+    understanding:answers.understanding,
+    activities:answers.activities,
+    teacher_care:answers.teacher_care,
+    ask_freely:answers.ask_freely,
+    homework_help:answers.homework_help,
+    test_ready:answers.test_ready,
+    overall:answers.overall,
+    suggestions:document.getElementById('suggestions').value.trim()
+  };
+
+  const btn=document.getElementById('subBtn');
+  document.getElementById('subTxt').style.display='none';
+  document.getElementById('subSpin').style.display='inline';
+  btn.disabled=true;
+
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    document.getElementById('form').style.display='none';
+    document.getElementById('suc').classList.add('show');
+  }catch(err){
+    toast('حدث خطأ، يرجى المحاولة مجدداً · Error, please try again','bad');
+    document.getElementById('subTxt').style.display='inline';
+    document.getElementById('subSpin').style.display='none';
+    btn.disabled=false;
+  }
+});
+</script>
+</body>
+</html>
